@@ -1,0 +1,20 @@
+{
+  "name": "Prueba",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/miguel-saiph/Prueba",
+  "author": "Miguel Angel Saiph",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "6",
+    "babel-loader": "7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "2.0.0",
+    "webpack": "3.0.0",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "phaser": "3.0.0"
+  }
+}
