@@ -27,6 +27,13 @@ module.exports = {
             presets: ['env']
           }
         }
+        
+      },
+      //Para solucionar un error al integrar Phaser
+      //http://www.html5gamedevs.com/topic/39352-webpacket-typescript-phaser-3-error-with/
+      {
+        test: [ /\.vert$/, /\.frag$/ ],
+        use: 'raw-loader'
       }
     ]
   },
@@ -41,13 +48,21 @@ module.exports = {
       {
         from: path.resolve(__dirname, 'index.html'),
         to: path.resolve(__dirname, 'build')
+      },
+      {
+        from: path.resolve(__dirname, 'assets', '**', '*'),
+        to: path.resolve(__dirname, 'build')
       }
     ]),
     //Define variables globales para decirle a Phaser que incluya renderer para Canvas y Webgl
     new webpack.DefinePlugin({
-      'typeof CANVAS_RENDERER': JSON.stringify(true),
-      'typeof WEBGL_RENDERER': JSON.stringify(true)
-    })
+      'CANVAS_RENDERER': JSON.stringify(true),
+      'WEBGL_RENDERER': JSON.stringify(true)
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'production-dependencies',
+      filename: 'production-dependencies.bundle.js'
+    }),
   ]
 
 };
