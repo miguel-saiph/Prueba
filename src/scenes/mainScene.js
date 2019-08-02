@@ -1,6 +1,6 @@
 
 import { Entity } from '../entities/Entities';
-import { Player } from '../entities/Player';
+import { Fruta, Damasco, Durazno } from '../entities/Fruta';
 
 export class MainScene extends Phaser.Scene {
   
@@ -10,8 +10,8 @@ export class MainScene extends Phaser.Scene {
 
   preload() {
   	this.load.image("sky", "assets/sky.png");
-  	this.load.image("damasco", "assets/frutas/damasco.png");
-
+  	this.load.image("damasco", "assets/frutas/SVG/Damasco.svg");
+  	this.load.image("durazno", "assets/frutas/SVG/Durazno.svg");
   }
 
   create() {
@@ -26,30 +26,55 @@ export class MainScene extends Phaser.Scene {
 
   	this.add.image(400, 300, 'sky');
 
-    this.player1 = new Player(
+    this.fruta1 = new Damasco(
 	  this,
 	  width * 0.5,
 	  height * 0.5,
-	  "damasco"
+	  0.8,
+	  0.8
 		); 
 		this.frutas.add(this.player1);
 
-		this.player2 = new Player(
+		this.fruta2 = new Durazno(
 	  this,
 	  width * 0.1,
 	  height * 0.1,
-	  "damasco"
+	  0.8,
+	  0.8
 		); 
-		this.frutas.add(this.player2);
+		this.frutas.add(this.fruta2);
 
-		console.log(this.player1.getData("speed"));
-		console.log(this.player1);
-		this.player1.scaleX = 0.1;
-		this.player1.scaleY = 0.1;
-		this.player2.scaleX = 0.1;
-		this.player2.scaleY = 0.1;
+		console.log(this.fruta1.getData("precio"));
+		console.log(this.fruta1.getData("unidad"));
+		console.log(this.fruta1);
+
+		//this.player1.setInteractive();
+		//this.input.on('pointerdown', function(pointer){
+     	//console.log("Dejó de tocar");
+ 		//});
+    
 
 		console.log(this.frutas.getChildren());
+
+		this.fruta3 = new Damasco(
+	  this,
+	  width * 1,
+	  height * 1,
+	  0.8,
+	  0.8
+		);
+
+		console.log(this.fruta3);
+
+		this.fruta4 = new Durazno(
+	  this,
+	  width * 0.4,
+	  height * 0.4,
+	  0.8,
+	  0.8
+		);
+
+		console.log(this.fruta3.name);
 		
   }
 }

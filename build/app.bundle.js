@@ -133029,7 +133029,7 @@ module.exports = ReverseString;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+		value: true
 });
 exports.MainScene = undefined;
 
@@ -133037,7 +133037,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _Entities = __webpack_require__(391);
 
-var _Player = __webpack_require__(992);
+var _Fruta = __webpack_require__(992);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -133046,39 +133046,66 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var MainScene = exports.MainScene = function (_Phaser$Scene) {
-  _inherits(MainScene, _Phaser$Scene);
+		_inherits(MainScene, _Phaser$Scene);
 
-  function MainScene() {
-    _classCallCheck(this, MainScene);
+		function MainScene() {
+				_classCallCheck(this, MainScene);
 
-    return _possibleConstructorReturn(this, (MainScene.__proto__ || Object.getPrototypeOf(MainScene)).call(this, { key: "MainScene" }));
-  }
+				return _possibleConstructorReturn(this, (MainScene.__proto__ || Object.getPrototypeOf(MainScene)).call(this, { key: "MainScene" }));
+		}
 
-  _createClass(MainScene, [{
-    key: 'preload',
-    value: function preload() {
-      this.load.image("sky", "assets/sky.png");
-    }
-  }, {
-    key: 'create',
-    value: function create() {
+		_createClass(MainScene, [{
+				key: 'preload',
+				value: function preload() {
+						this.load.image("sky", "assets/sky.png");
+						this.load.image("damasco", "assets/frutas/damasco.png");
+						//this.load.image("durazno", "assets/frutas/Durazno.png");
+				}
+		}, {
+				key: 'create',
+				value: function create() {
 
-      console.log("Escena principal");
+						console.log("Escena principal");
 
-      var _sys$game$canvas = this.sys.game.canvas,
-          width = _sys$game$canvas.width,
-          height = _sys$game$canvas.height;
+						var _sys$game$canvas = this.sys.game.canvas,
+						    width = _sys$game$canvas.width,
+						    height = _sys$game$canvas.height;
 
 
-      this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
+						this.frutas = this.add.group();
 
-      this.add.image(400, 300, 'sky');
+						this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
 
-      this.player = new _Player.Player(this, width * 0.5, height * 0.5, "sprPlayer");
-    }
-  }]);
+						this.add.image(400, 300, 'sky');
 
-  return MainScene;
+						this.fruta1 = new _Fruta.Fruta(this, width * 0.5, height * 0.5, "damasco");
+						this.frutas.add(this.player1);
+
+						this.fruta2 = new _Fruta.Fruta(this, width * 0.1, height * 0.1, "damasco");
+						this.frutas.add(this.fruta2);
+
+						console.log(this.fruta1.getData("speed"));
+						console.log(this.fruta1);
+
+						this.fruta1.scaleX = 0.1;
+						this.fruta1.scaleY = 0.1;
+						this.fruta2.scaleX = 0.1;
+						this.fruta2.scaleY = 0.1;
+
+						//this.player1.setInteractive();
+						this.input.on('pointerdown', function (pointer) {
+								console.log("Dejó de tocar");
+						});
+
+						console.log(this.frutas.getChildren());
+
+						this.fruta3 = new _Fruta.Damasco(this, width * 1, height * 1, null, 0.1, 0.1);
+
+						console.log(this.fruta3);
+				}
+		}]);
+
+		return MainScene;
 }(Phaser.Scene);
 
 /***/ }),
@@ -133091,7 +133118,7 @@ var MainScene = exports.MainScene = function (_Phaser$Scene) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Player = undefined;
+exports.Damasco = exports.Fruta = undefined;
 
 var _Entities = __webpack_require__(391);
 
@@ -133101,21 +133128,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Player = exports.Player = function (_Entity) {
-  _inherits(Player, _Entity);
+var Fruta = exports.Fruta = function (_Entity) {
+  _inherits(Fruta, _Entity);
 
-  function Player(scene, x, y, key) {
-    _classCallCheck(this, Player);
+  function Fruta(scene, x, y, key, scaleX, scaleY) {
+    _classCallCheck(this, Fruta);
 
-    var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, scene, x, y, key, "Player"));
+    var _this = _possibleConstructorReturn(this, (Fruta.__proto__ || Object.getPrototypeOf(Fruta)).call(this, scene, x, y, key, "fruta", "Fruta"));
 
-    _this.setData("speed", 200);
+    _this.setData("speed", null);
+
+    // Para que reaccione a los eventos
+    _this.setInteractive();
+
+    _this.on('pointerdown', function (pointer) {
+      console.log(this.getData("speed"));
+    });
 
     return _this;
   }
 
-  return Player;
+  return Fruta;
 }(_Entities.Entity);
+
+var Damasco = exports.Damasco = function (_Fruta) {
+  _inherits(Damasco, _Fruta);
+
+  function Damasco(scene, x, y, key, scaleX, scaleY) {
+    _classCallCheck(this, Damasco);
+
+    var _this2 = _possibleConstructorReturn(this, (Damasco.__proto__ || Object.getPrototypeOf(Damasco)).call(this, scene, x, y, "damasco", "Fruta"));
+
+    _this2.scaleX = scaleX;
+    _this2.scaleY = scaleY;
+    console.log(scaleX);
+
+    _this2.setData("speed", 200);
+
+    return _this2;
+  }
+
+  return Damasco;
+}(Fruta);
 
 /***/ })
 ],[392]);
