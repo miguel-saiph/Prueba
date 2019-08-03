@@ -10,7 +10,7 @@ export class MainScene extends Phaser.Scene {
 
   preload() {
   	this.load.image("sky", "assets/sky.png");
-  	this.load.svg("cuadro_info", "assets/cuadro_info.svg");
+  	this.load.svg("cuadro_info", "assets/cuadro_info.svg", {scale: 1 });
   	this.load.image("damasco", "assets/frutas/SVG/Damasco.svg");
   	this.load.image("durazno", "assets/frutas/SVG/Durazno.svg");
   }
@@ -26,7 +26,7 @@ export class MainScene extends Phaser.Scene {
   	this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
 
   	this.add.image(400, 300, 'sky');
-		this.add.image(width*0.75, height*0.25, 'cuadro_info').setScale(1);
+		this.add.image(width*0.75, height*0.35, 'cuadro_info');
 
 		console.log(width*0.75);
 
@@ -38,7 +38,7 @@ export class MainScene extends Phaser.Scene {
 	  0.8,
 	  0.8
 		); 
-		this.frutas.add(this.player1);
+		this.frutas.add(this.fruta1);
 
 		this.fruta2 = new Durazno(
 	  this,
