@@ -1,6 +1,6 @@
 
 import { Entity } from '../entities/Entities';
-import { Fruta, Damasco, Durazno } from '../entities/Fruta';
+import { Fruta, Damasco, Durazno } from '../entities/Frutas';
 
 export class MainScene extends Phaser.Scene {
   
@@ -10,6 +10,7 @@ export class MainScene extends Phaser.Scene {
 
   preload() {
   	this.load.image("sky", "assets/sky.png");
+  	this.load.svg("cuadro_info", "assets/cuadro_info.svg");
   	this.load.image("damasco", "assets/frutas/SVG/Damasco.svg");
   	this.load.image("durazno", "assets/frutas/SVG/Durazno.svg");
   }
@@ -25,6 +26,10 @@ export class MainScene extends Phaser.Scene {
   	this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
 
   	this.add.image(400, 300, 'sky');
+		this.add.image(width*0.75, height*0.25, 'cuadro_info').setScale(1);
+
+		console.log(width*0.75);
+
 
     this.fruta1 = new Damasco(
 	  this,
@@ -76,5 +81,9 @@ export class MainScene extends Phaser.Scene {
 
 		console.log(this.fruta3.name);
 		
+  }
+
+  miFuncion(precio) {
+  	console.log("Llamando mi función: " + precio);
   }
 }

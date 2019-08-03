@@ -6,8 +6,8 @@ import 'phaser';
 import { MainScene } from './scenes/mainScene';
 
 const gameConfig = {
-  width: 680,
-  height: 400,
+  width: 800,
+  height: 600,
   physics: {
     default: "arcade",
     arcade: {

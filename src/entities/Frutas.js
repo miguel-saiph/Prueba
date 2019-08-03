@@ -26,6 +26,7 @@ export class Fruta extends Entity {
   	this.on('pointerdown', function (pointer) {
       console.log("Precio: " + this.getData("precio"));
       console.log("Unidad: " + this.getData("unidad"));
+      this.scene.miFuncion(this.getData("precio"));
     });
 
     this.on('drag', function(pointer, dragX, dragY){
