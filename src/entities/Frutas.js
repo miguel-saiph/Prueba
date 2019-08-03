@@ -26,7 +26,7 @@ export class Fruta extends Entity {
   	this.on('pointerdown', function (pointer) {
       console.log("Precio: " + this.getData("precio"));
       console.log("Unidad: " + this.getData("unidad"));
-      this.scene.miFuncion(this.getData("precio"));
+      this.scene.mostrarInfo(this.getData("precio"), this.getData("unidad"), this.getData("type"));
     });
 
     this.on('drag', function(pointer, dragX, dragY){
@@ -49,7 +49,7 @@ export class Damasco extends Fruta {
 
   	super(scene, x, y, "damasco", scaleX, scaleY);
 
-		this.setData("type", "Damasco");
+		this.setData("type", "damasco");
   	this.setData("precio", 800);
   	this.setData("unidad", "kilo");
   }
@@ -61,10 +61,37 @@ export class Durazno extends Fruta {
 
   	super(scene, x, y, "durazno", scaleX, scaleY);
 
-  	this.setData("type", "Durazno");
+  	this.setData("type", "durazno");
   	this.setData("precio", 650);
   	this.setData("unidad", "kilo");
     
   }
 }
+
+export class Frambuesa extends Fruta {
+  
+  constructor(scene, x, y, scaleX, scaleY) {
+
+  	super(scene, x, y, "frambuesa", scaleX, scaleY);
+
+  	this.setData("type", "frambuesa");
+  	this.setData("precio", 650);
+  	this.setData("unidad", "kilo");
+    
+  }
+}
+
+export class Frutilla extends Fruta {
+  
+  constructor(scene, x, y, scaleX, scaleY) {
+
+  	super(scene, x, y, "frutilla", scaleX, scaleY);
+
+  	this.setData("type", "frutilla");
+  	this.setData("precio", 650);
+  	this.setData("unidad", "kilo");
+    
+  }
+}
+
 
