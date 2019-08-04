@@ -29,7 +29,8 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-  	this.load.image("sky", "assets/sky.png");
+
+  	// Elementos UI
   	this.load.svg("cuadro_info", "assets/cuadro_info.svg", {scale: 1 });
   	this.load.svg("incognita", "assets/incognita.svg", {scale: 1 });
   	this.load.image("cajon", "assets/cajon.png");
@@ -65,9 +66,6 @@ export class MainScene extends Phaser.Scene {
   	// Decide el orden que se va a pedir
   	this.orden = Help.getRandomInt(0, 2) === 1 ? 'asc' : 'desc';
 
-  	//this.sky = this.add.image(400, 300, 'sky').setInteractive();
-  	//this.sky.setDepth(-10);
-
   	// Render cuadro de info
   	this.cuadro_info = this.add.image(width*0.75, height*0.35, 'cuadro_info');
   	this.incognita = this.add.image(this.cuadro_info.x, this.cuadro_info.y, 'incognita');
@@ -84,6 +82,7 @@ export class MainScene extends Phaser.Scene {
 
   		posX = width*0.2;
   		
+  		// Agrega separación sólo si no es la primera fruta
   		if( col != this.columns-1)
   			posY = posY + separacion/1.3;
 
@@ -162,6 +161,7 @@ export class MainScene extends Phaser.Scene {
   		
   		this.cajones.add(cajon);
 
+  		// Alterna entre izquierda/derecha
   		if (i % 2 === 0) {
   			
   			var simbolo = this.add.image(cajon.x+120, posY, 'mayor');
@@ -185,22 +185,7 @@ export class MainScene extends Phaser.Scene {
 			if(this.btnRevisar.texture.key === 'btnRevisarActivo')
 				this.checkResultados();
 		}, this);
-
-
-		//this.player1.setInteractive();
-		//this.input.on('pointerdown', function(pointer){
-     	//console.log("Dejó de tocar");
- 		//});
-    
-
-	 	//this.sky.on('pointerdown', function (pointer) {
-	 		//this.incognita.visible = true;
-    //});
 		
-  }
-
-  update() {
-  	//console.log(this.cajones.getChildren()[0].getData("fruta"));
   }
 
   mostrarInfo(precio, unidad, tipo) {
@@ -258,10 +243,8 @@ export class MainScene extends Phaser.Scene {
   		valores.push(element.getData("fruta").getData("precio"));
   	});
 
-  	console.log(valores);
-
   	var resultado = Help.isSorted(valores, this.orden);
-  	console.log("Sorted: " + resultado);
+  	//console.log("Sorted: " + resultado);
 
   	// Crea la barra de feedback
   	var graphics = this.add.graphics();
@@ -290,12 +273,14 @@ export class MainScene extends Phaser.Scene {
 
 		resultado ? this.btnRevisar.setTexture('btnEnviarVerde') : this.btnRevisar.setTexture('btnContinuar');
 
+		// Desactiva el drag de las frutas
 		var frutas = [];
 		this.frutas.getChildren().forEach(function(element) {
 			frutas.push(element);
 		});
 		this.input.setDraggable(frutas, false);
 
+		// Eventos click del botón revisar
 		this.btnRevisar.on("pointerdown", function() {
 
 			if(this.btnRevisar.texture.key === 'btnContinuar') {
