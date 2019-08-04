@@ -8,6 +8,7 @@ import { MainScene } from './scenes/mainScene';
 const gameConfig = {
   width: 800,
   height: 600,
+  transparent: true,
   physics: {
     default: "arcade",
     arcade: {
