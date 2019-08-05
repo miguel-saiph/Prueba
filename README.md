@@ -19,5 +19,5 @@
 Ingresar a la carpeta del proyecto desde la línea de comandos `cd carpeta-del-proyecto`.
 
 1. Ejecutar el comando `yarn webpack-dev-server`.
-2. Abrir en el navegador la dirección `http://localhost:8080`.
+2. Abrir en el navegador la dirección `http://localhost:8080`
 3. Seleccionar la carpeta 'build' en la pantalla (o acceder directamente desde `http://localhost:8080/build`).
