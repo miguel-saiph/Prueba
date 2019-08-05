@@ -23,3 +23,5 @@ Ingresar a la carpeta del proyecto desde la línea de comandos `cd carpeta-del-p
 3. Seleccionar la carpeta 'build' en la pantalla (o acceder directamente desde `http://localhost:8080/build`).
 
 El código fuente está en la carpeta "src". Como es una build de desarrollo, cada vez que se haga un cambio en el código este se verá reflejado en el navegador automáticamente.
+
+Nota: Sólo está probado en Windows.
