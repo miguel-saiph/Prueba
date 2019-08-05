@@ -23,7 +23,7 @@ export class MainScene extends Phaser.Scene {
     this.columns = 2; // Columnas de frutas
     this.disponibles = Object.keys(Frutas); //Array con los nombres de las frutas disponibles
     this.escala_cajones = 0.25;
-    this.escala_frutas = 0.8;
+    this.escala_frutas = 0.15;
     this.btnRevisar;
     this.etapa;
   }
@@ -44,16 +44,16 @@ export class MainScene extends Phaser.Scene {
   	this.load.svg("btnEnviarVerde", "assets/botones/SVG/enviar_verde.svg", {scale: 1 });
   	
   	// Frutas
-  	this.load.image("frutilla", "assets/frutas/SVG/Frutilla.svg");
-  	this.load.image("damasco", "assets/frutas/SVG/Damasco.svg");
-  	this.load.image("durazno", "assets/frutas/SVG/Durazno.svg");
-  	this.load.image("frambuesa", "assets/frutas/SVG/Frambuesa.svg");
-  	this.load.image("manzana", "assets/frutas/SVG/Manzana.svg");
-  	this.load.image("naranja", "assets/frutas/SVG/naranja.svg");
-  	this.load.image("pera", "assets/frutas/SVG/Pera.svg");
-  	this.load.image("plátano", "assets/frutas/SVG/Platano.svg");
-  	this.load.image("sandía", "assets/frutas/SVG/Sandia.svg");
-  	this.load.image("uva", "assets/frutas/SVG/Uva.svg");
+  	this.load.svg("frutilla", "assets/frutas/SVG/Frutilla.svg", {scale: 1});
+  	this.load.svg("damasco", "assets/frutas/SVG/Damasco.svg", {scale: 1});
+  	this.load.svg("durazno", "assets/frutas/SVG/Durazno.svg", {scale: 1});
+  	this.load.svg("frambuesa", "assets/frutas/SVG/Frambuesa.svg", {scale: 1});
+  	this.load.svg("manzana", "assets/frutas/SVG/Manzana.svg", {scale: 1});
+  	this.load.svg("naranja", "assets/frutas/SVG/naranja.svg", {scale: 1});
+  	this.load.svg("pera", "assets/frutas/SVG/Pera.svg", {scale: 1});
+  	this.load.svg("plátano", "assets/frutas/SVG/Platano.svg", {scale: 1});
+  	this.load.svg("sandía", "assets/frutas/SVG/Sandia.svg", {scale: 1});
+  	this.load.svg("uva", "assets/frutas/SVG/Uva.svg", {scale: 1});
 
   }
 
@@ -141,11 +141,14 @@ export class MainScene extends Phaser.Scene {
 						fruta = new Frutas.Uva(this, posX, posY, this.escala_frutas);	
   					break;
   			}
-  			this.frutas.add(fruta);
+				this.frutas.add(fruta);
+				this.input.setDraggable(fruta, true);
+				//var uva = new Frutas.Uva(this, posX, posY, this.escala_frutas);	
+				
   				
   		}
   		 
-  	}
+		}
 
   	// Creación de los cajones
   	var defaultX = width*0.5;
@@ -223,7 +226,7 @@ export class MainScene extends Phaser.Scene {
   		this.fruta_static.destroy();
 
   	// Crea imagen de la fruta seleccionada
-  	this.fruta_static = this.add.image(this.cuadro_info.x, this.cuadro_info.y + 50, tipo).setScale(0.7);
+  	this.fruta_static = this.add.image(this.cuadro_info.x, this.cuadro_info.y + 50, tipo).setScale(this.escala_frutas);
   }
 
   checkResultados() {
@@ -315,7 +318,8 @@ export class MainScene extends Phaser.Scene {
   checkOverlap(fruta) {
 
   	let intersecta = false;
-  	let totalLlenos = 0;
+		let totalLlenos = 0;
+		let frutaAnterior;
 
   	// Recorre los cajones para ver si la fruta lo intersecta
   	this.cajones.getChildren().forEach(function(element) {
@@ -325,9 +329,11 @@ export class MainScene extends Phaser.Scene {
   			intersecta = true;
 
   			// Si el cajón ya tenía una fruta, la devuelve a su posición original
-  			var frutaAnterior = element.getData("fruta");
+  			frutaAnterior = element.getData("fruta");
   			if (frutaAnterior)
-  				frutaAnterior.resetPosition();
+					frutaAnterior.resetPosition();
+
+				this.vaciarCajon(fruta);
   				
   			// Guarda la fruta en el cajón
   			element.setData("fruta", fruta);
@@ -338,7 +344,7 @@ export class MainScene extends Phaser.Scene {
   		if (element.getData("fruta"))
   			totalLlenos++;
 
-  	});
+		}.bind(this));
 
   	if (!intersecta) {
   		fruta.resetPosition();
@@ -357,7 +363,9 @@ export class MainScene extends Phaser.Scene {
   	if(this.etapa !== 'Resultados') {
   		this.cajones.getChildren().forEach(function(element) {
 	  		if (element.getData("fruta") === fruta) {
-	  			element.setData("fruta", null);
+					console.log("Vació: " + element.getData("fruta").getData("type"));
+					element.setData("fruta", null);
+					
 	  		}
   		});	
   	}

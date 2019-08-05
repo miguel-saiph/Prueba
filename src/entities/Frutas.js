@@ -24,7 +24,7 @@ export class Fruta extends Entity {
   	// Para que reaccione a los eventos
   	this.setInteractive();
 
-  	this.scene.input.setDraggable(this);
+		//scene.input.setDraggable(this, true);
 
   	// Evento click
   	this.on('pointerdown', function (pointer) {
@@ -65,7 +65,7 @@ export class Fruta extends Entity {
   	this.setPosition(this.defaultX, this.defaultY);
 
   	// Borra la referencia a este objeto en el cajón en el que estaba
-  	this.scene.vaciarCajon(this);
+  	//this.scene.vaciarCajon(this);
   }
 
   disableDrag() {
