@@ -6,7 +6,8 @@ module.exports = {
 	
 	//Define el entry point de la aplicación
 	entry: {
-    app: './src/index.js'
+    app: './src/index.js',
+    'production-dependencies': ['phaser']
   },
 
   //Define dónde se creará la build de producción
@@ -42,6 +43,8 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),
   },
+
+  devtool: 'inline-source-map',
 
   plugins: [
     new CopyWebpackPlugin([
